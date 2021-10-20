@@ -8,9 +8,13 @@ function vonal (balv: number, jobbv: number) {
         maqueen.motorRun(maqueen.Motors.M1, maqueen.Dir.CW, 0)
         maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CW, 60)
     } else {
-        maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CCW, 20)
+        maqueen.motorRun(maqueen.Motors.All, maqueen.Dir.CCW, 60)
     }
 }
 basic.forever(function () {
-    vonal(maqueen.readPatrol(maqueen.Patrol.PatrolLeft), maqueen.readPatrol(maqueen.Patrol.PatrolRight))
+    if (maqueen.Ultrasonic(PingUnit.Centimeters) <= 5) {
+        maqueen.motorStop(maqueen.Motors.All)
+    } else {
+        vonal(maqueen.readPatrol(maqueen.Patrol.PatrolLeft), maqueen.readPatrol(maqueen.Patrol.PatrolRight))
+    }
 })
